@@ -33,22 +33,13 @@
     _minimumScaleFactor             = 0.5;
     _rotateViewsBasedOnPerspective  = YES;
     _showsRadar                     = YES;
+    _showsCloseButton               = YES;
     _radarRange                     = 20.0;
     _onlyShowItemsWithinRadarRange  = NO;
     
     // Create ARC
     _agController = [[AugmentedRealityController alloc] initWithViewController:self withDelgate:self];
 	
-    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-    [closeBtn setTitle:@"Close" forState:UIControlStateNormal];
-    [closeBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0]];
-    [closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [closeBtn.titleLabel setShadowColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
-    [closeBtn.titleLabel setShadowOffset:CGSizeMake(0, -1)];
-    [closeBtn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
-    [closeBtn addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [[self view] addSubview:closeBtn];
-    
 	[_agController setDebugMode:_debugMode];
     [_agController setShowsRadar:_showsRadar];
     [_agController setRadarRange:_radarRange];
@@ -68,8 +59,6 @@
 		}
 	}
     
-    
-    
  	return self;
 }
 
@@ -84,6 +73,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+
+    if(_showsCloseButton == YES) {
+        UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+        
+        [closeBtn setTitle:@"Close" forState:UIControlStateNormal];
+        [closeBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0]];
+        [closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [closeBtn.titleLabel setShadowColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
+        [closeBtn.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+        [closeBtn setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:1.0]];
+        [closeBtn addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [[self view] addSubview:closeBtn];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

@@ -12,4 +12,5 @@
 @interface ViewController : UIViewController <ARLocationDelegate>
 
 - (IBAction)startAR:(id)sender;
+- (IBAction)startARWithoutCloseButton:(id)sender;
 @end

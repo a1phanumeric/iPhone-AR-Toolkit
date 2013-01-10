@@ -15,6 +15,7 @@
 @interface ARViewController : UIViewController<ARMarkerDelegate, ARDelegate>
 
 @property (nonatomic, assign) id<ARLocationDelegate> delegate;
+@property (assign, nonatomic) BOOL showsCloseButton;
 
 @property (assign, nonatomic, setter = setDebugMode:)                       BOOL debugMode;
 @property (assign, nonatomic, setter = setShowsRadar:)                      BOOL showsRadar;

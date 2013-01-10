@@ -40,6 +40,17 @@
     }
 }
 
+- (IBAction)startARWithoutCloseButton:(id)sender {
+    if([ARKit deviceSupportsAR]){
+        _arViewController = [[ARViewController alloc] initWithDelegate:self];
+        _arViewController.showsCloseButton = false;
+        [_arViewController setRadarRange:4000.0];
+        [_arViewController setOnlyShowItemsWithinRadarRange:YES];
+        [_arViewController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
+        [self presentViewController:_arViewController animated:YES completion:nil];
+    }
+}
+
 - (NSMutableArray *)geoLocations{
     
     NSMutableArray *locationArray = [[NSMutableArray alloc] init];
