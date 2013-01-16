@@ -13,6 +13,8 @@
 
 @interface MarkerView : UIView
 
+@property (nonatomic) BOOL usesMetric;
+
 - (id)initForCoordinate:(ARGeoCoordinate *)coordinate withDelgate:(id<ARMarkerDelegate>) aDelegate;
 - (id)initForCoordinate:(ARGeoCoordinate *)coordinate withDelgate:(id<ARMarkerDelegate>)aDelegate allowsCallout:(BOOL)allowsCallout;
 @end

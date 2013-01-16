@@ -63,13 +63,20 @@
 		[titleLabel setText:			[coordinate title]];
         [self addSubview:titleLabel];
         
+        NSLocale *locale = [NSLocale currentLocale];
+        _usesMetric = [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
+
         
         _lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(0, LABEL_HEIGHT + LABEL_MARGIN, labelSize.width, labelSize.height)];
 		[_lblDistance setBackgroundColor:    [UIColor clearColor]];
 		[_lblDistance setTextColor:          [UIColor whiteColor]];
 		[_lblDistance setTextAlignment:      NSTextAlignmentCenter];
         [_lblDistance setFont:               [UIFont fontWithName:@"Helvetica" size:13.0]];
-		[_lblDistance setText:               [NSString stringWithFormat:@"%f", [coordinate distanceFromOrigin]]];
+		if(_usesMetric == YES){
+            [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]/1000.0f]];
+        } else {
+            [_lblDistance setText:[NSString stringWithFormat:@"%.2f mi", ([_coordinateInfo distanceFromOrigin]/1000.0f) * 0.621371]];
+        }
         [self addSubview:_lblDistance];
         
 		
@@ -89,7 +96,11 @@
 
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]/1000.0f]];
+    if(_usesMetric == YES){
+        [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]/1000.0f]];
+    } else {
+        [_lblDistance setText:[NSString stringWithFormat:@"%.2f mi", ([_coordinateInfo distanceFromOrigin]/1000.0f) * 0.621371]];
+    }
 }
 
 
