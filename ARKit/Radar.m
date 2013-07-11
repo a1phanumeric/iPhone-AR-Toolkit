@@ -66,6 +66,10 @@
             } else if (poi.azimuth == (3 * M_PI / 2)) {
                 x = RADIUS - poi.radialDistance / scale;
                 y = RADIUS;
+            } else {
+                //If none of the above match we use the scenario where azimuth is 0
+                x = RADIUS;
+                y = RADIUS - poi.radialDistance / scale;
             }
             //drawing the radar point
             CGContextSetFillColorWithColor(contextRef, _pointColour.CGColor);

@@ -176,7 +176,7 @@
     
     if(_showsRadar){
         
-        CGRect displayFrame = [[UIScreen mainScreen] bounds];
+        CGRect displayFrame = [[[self rootViewController] view] frame];
         
         _radarView       = [[Radar alloc] initWithFrame:CGRectMake(displayFrame.size.width - 63, 2, 61, 61)];
         _radarViewPort   = [[RadarViewPortView alloc] initWithFrame:CGRectMake(displayFrame.size.width - 63, 2, 61, 61)];
@@ -539,7 +539,7 @@
 
 - (void)currentDeviceOrientation {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-
+    
 	if (orientation != UIDeviceOrientationUnknown && orientation != UIDeviceOrientationFaceUp && orientation != UIDeviceOrientationFaceDown) {
 		switch (orientation) {
             case UIDeviceOrientationLandscapeLeft:
@@ -592,5 +592,12 @@
     
     [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     
+    //Last but not least we need to move the radar if we are displaying one
+    if(_radarViewPort && _radarView)
+    {
+        [radarNorthLabel setFrame:CGRectMake(newFrame.size.width - 37, 2, 10, 10)];
+        [_radarView setFrame:CGRectMake(newFrame.size.width - 63, 2, 61, 61)];
+        [_radarViewPort setFrame:CGRectMake(newFrame.size.width - 63, 2, 61, 61)];
+    }
 }
 @end
